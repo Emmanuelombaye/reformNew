@@ -14,6 +14,9 @@
 
 	function destroy() {
 		headingGen += 1;
+		if (window.HealthioCursor && typeof window.HealthioCursor.destroy === "function") {
+			window.HealthioCursor.destroy();
+		}
 		if (window.ScrollTrigger && typeof window.ScrollTrigger.getAll === "function") {
 			window.ScrollTrigger.getAll().forEach(function (t) {
 				t.kill();
@@ -425,6 +428,10 @@
 					}
 				});
 			}
+		}
+
+		if (window.HealthioCursor && typeof window.HealthioCursor.init === "function") {
+			window.HealthioCursor.init();
 		}
 
 		state.initialized = true;

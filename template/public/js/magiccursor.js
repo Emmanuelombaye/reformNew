@@ -1,127 +1,207 @@
-class Cursor {
-    constructor(options) {
-        this.options = $.extend(true, {
-            container: "body",
-            speed: 0.7,
-            ease: "expo.out",
-            visibleTimeout: 300
-        }, options);
-        this.body = $(this.options.container);
-        this.el = $('<div class="cb-cursor"></div>');
-        this.text = $('<div class="cb-cursor-text"></div>');
-        this.init();
-    }
+(function (window, $) {
+	"use strict";
 
-    init() {
-        this.el.append(this.text);
-        this.body.append(this.el);
-        this.bind();
-        this.move(-window.innerWidth, -window.innerHeight, 0);
-    }
+	if (!window || !$) return;
 
-    bind() {
-        const self = this;
+	var instance = null;
 
-        this.body.on('mouseleave', () => {
-            self.hide();
-        }).on('mouseenter', () => {
-            self.show();
-        }).on('mousemove', (e) => {
-            this.pos = {
-                x: this.stick ? this.stick.x - ((this.stick.x - e.clientX) * 0.15) : e.clientX,
-                y: this.stick ? this.stick.y - ((this.stick.y - e.clientY) * 0.15) : e.clientY
-            };
-            this.update();
-        }).on('mousedown', () => {
-            self.setState('-active');
-        }).on('mouseup', () => {
-            self.removeState('-active');
-        }).on('mouseenter', 'a,input,textarea,button', () => {
-            self.setState('-pointer');
-        }).on('mouseleave', 'a,input,textarea,button', () => {
-            self.removeState('-pointer');
-        }).on('mouseenter', 'iframe', () => {
-            self.hide();
-        }).on('mouseleave', 'iframe', () => {
-            self.show();
-        }).on('mouseenter', '[data-cursor]', function () {
-            self.setState(this.dataset.cursor);
-        }).on('mouseleave', '[data-cursor]', function () {
-            self.removeState(this.dataset.cursor);
-        }).on('mouseenter', '[data-cursor-text]', function () {
-            self.setText(this.dataset.cursorText);
-        }).on('mouseleave', '[data-cursor-text]', function () {
-            self.removeText();
-        }).on('mouseenter', '[data-cursor-stick]', function () {
-            self.setStick(this.dataset.cursorStick);
-        }).on('mouseleave', '[data-cursor-stick]', function () {
-            self.removeStick();
-        });
-    }
+	function Cursor(options) {
+		this.options = $.extend(
+			true,
+			{
+				container: "body",
+				speed: 0.7,
+				ease: "expo.out",
+				visibleTimeout: 300,
+			},
+			options
+		);
+		this.body = $(this.options.container);
+		this.el = $('<div class="cb-cursor"></div>');
+		this.text = $('<div class="cb-cursor-text"></div>');
+		this.pos = { x: -100, y: -100 };
+		this.stick = false;
+		this.visible = false;
+		this.visibleInt = null;
+		this.init();
+	}
 
-    setState(state) {
-        this.el.addClass(state);
-    }
+	Cursor.prototype.init = function () {
+		this.el.append(this.text);
+		this.body.append(this.el);
+		this.bind();
+		this.move(-window.innerWidth, -window.innerHeight, 0);
+	};
 
-    removeState(state) {
-        this.el.removeClass(state);
-    }
+	Cursor.prototype.bind = function () {
+		var self = this;
 
-    toggleState(state) {
-        this.el.toggleClass(state);
-    }
+		this.body
+			.on("mouseleave.healthioCursor", function () {
+				self.hide();
+			})
+			.on("mouseenter.healthioCursor", function () {
+				self.show();
+			})
+			.on("mousemove.healthioCursor", function (e) {
+				self.pos = {
+					x: self.stick ? self.stick.x - (self.stick.x - e.clientX) * 0.15 : e.clientX,
+					y: self.stick ? self.stick.y - (self.stick.y - e.clientY) * 0.15 : e.clientY,
+				};
+				self.update();
+			})
+			.on("mousedown.healthioCursor", function () {
+				self.setState("-active");
+			})
+			.on("mouseup.healthioCursor", function () {
+				self.removeState("-active");
+			})
+			.on("mouseenter.healthioCursor", "a,input,textarea,button", function () {
+				self.setState("-pointer");
+			})
+			.on("mouseleave.healthioCursor", "a,input,textarea,button", function () {
+				self.removeState("-pointer");
+			})
+			.on("mouseenter.healthioCursor", "iframe", function () {
+				self.hide();
+			})
+			.on("mouseleave.healthioCursor", "iframe", function () {
+				self.show();
+			})
+			.on("mouseenter.healthioCursor", "[data-cursor]", function () {
+				self.setState(this.dataset.cursor);
+			})
+			.on("mouseleave.healthioCursor", "[data-cursor]", function () {
+				self.removeState(this.dataset.cursor);
+			})
+			.on("mouseenter.healthioCursor", "[data-cursor-text]", function () {
+				self.setText(this.dataset.cursorText);
+			})
+			.on("mouseleave.healthioCursor", "[data-cursor-text]", function () {
+				self.removeText();
+			})
+			.on("mouseenter.healthioCursor", "[data-cursor-stick]", function () {
+				self.setStick(this.dataset.cursorStick);
+			})
+			.on("mouseleave.healthioCursor", "[data-cursor-stick]", function () {
+				self.removeStick();
+			});
+	};
 
-    setText(text) {
-        this.text.html(text);
-        this.el.addClass('-text');
-    }
+	Cursor.prototype.unbind = function () {
+		this.body.off(".healthioCursor");
+	};
 
-    removeText() {
-        this.el.removeClass('-text');
-    }
+	Cursor.prototype.setState = function (state) {
+		this.el.addClass(state);
+	};
 
-    setStick(el) {
-        const target = $(el);
-        const bound = target.get(0).getBoundingClientRect();
-        this.stick = {
-            y: bound.top + (target.height() / 2),
-            x: bound.left + (target.width() / 2)
-        };
-        this.move(this.stick.x, this.stick.y, 5);
-    }
+	Cursor.prototype.removeState = function (state) {
+		this.el.removeClass(state);
+	};
 
-    removeStick() {
-        this.stick = false;
-    }
+	Cursor.prototype.toggleState = function (state) {
+		this.el.toggleClass(state);
+	};
 
-    update() {
-        this.move();
-        this.show();
-    }
+	Cursor.prototype.setText = function (text) {
+		this.text.html(text);
+		this.el.addClass("-text");
+	};
 
-    move(x, y, duration) {
-        gsap.to(this.el, {
-            x: x || this.pos.x,
-            y: y || this.pos.y,
-            force3D: true,
-            overwrite: true,
-            ease: this.options.ease,
-            duration: this.visible ? (duration || this.options.speed) : 0
-        });
-    }
+	Cursor.prototype.removeText = function () {
+		this.el.removeClass("-text");
+		this.text.html("");
+	};
 
-    show() {
-        if (this.visible) return;
-        clearInterval(this.visibleInt);
-        this.el.addClass('-visible');
-        this.visibleInt = setTimeout(() => this.visible = true);
-    }
+	Cursor.prototype.setStick = function (el) {
+		var target = $(el);
+		var node = target.get(0);
+		if (!node) return;
+		var bound = node.getBoundingClientRect();
+		this.stick = {
+			y: bound.top + target.height() / 2,
+			x: bound.left + target.width() / 2,
+		};
+		this.move(this.stick.x, this.stick.y, 5);
+	};
 
-    hide() {
-        clearInterval(this.visibleInt);
-        this.el.removeClass('-visible');
-        this.visibleInt = setTimeout(() => this.visible = false, this.options.visibleTimeout);
-    }
-}
-// Init cursor
-const cursor = new Cursor();
+	Cursor.prototype.removeStick = function () {
+		this.stick = false;
+	};
+
+	Cursor.prototype.update = function () {
+		this.move();
+		this.show();
+	};
+
+	Cursor.prototype.move = function (x, y, duration) {
+		if (typeof gsap === "undefined") return;
+		var nextX = typeof x === "number" ? x : this.pos.x;
+		var nextY = typeof y === "number" ? y : this.pos.y;
+		gsap.to(this.el, {
+			x: nextX,
+			y: nextY,
+			force3D: true,
+			overwrite: true,
+			ease: this.options.ease,
+			duration: this.visible ? (typeof duration === "number" ? duration : this.options.speed) : 0,
+		});
+	};
+
+	Cursor.prototype.show = function () {
+		if (this.visible) return;
+		clearTimeout(this.visibleInt);
+		this.el.addClass("-visible");
+		var self = this;
+		this.visibleInt = setTimeout(function () {
+			self.visible = true;
+		}, 0);
+	};
+
+	Cursor.prototype.hide = function () {
+		clearTimeout(this.visibleInt);
+		this.el.removeClass("-visible");
+		var self = this;
+		this.visibleInt = setTimeout(function () {
+			self.visible = false;
+		}, this.options.visibleTimeout);
+	};
+
+	Cursor.prototype.destroy = function () {
+		this.unbind();
+		clearTimeout(this.visibleInt);
+		this.el.remove();
+	};
+
+	function isDesktop() {
+		return window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+	}
+
+	window.HealthioCursor = {
+		init: function () {
+			if (!isDesktop()) {
+				this.destroy();
+				return null;
+			}
+			this.destroy();
+			instance = new Cursor();
+			document.documentElement.classList.add("has-cb-cursor");
+			return instance;
+		},
+		destroy: function () {
+			if (instance) {
+				instance.destroy();
+				instance = null;
+			}
+			$(".cb-cursor").remove();
+			document.documentElement.classList.remove("has-cb-cursor");
+		},
+		get: function () {
+			return instance;
+		},
+	};
+
+	// Do not auto-boot here — Next.js hydration must finish first.
+	// HealthioScripts / HealthioTheme call HealthioCursor.init().
+})(window, window.jQuery);

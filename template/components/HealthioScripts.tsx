@@ -30,9 +30,15 @@ type HealthioThemeApi = {
   isInitialized?: () => boolean;
 };
 
+type HealthioCursorApi = {
+  init: () => unknown;
+  destroy: () => void;
+};
+
 declare global {
   interface Window {
     HealthioTheme?: HealthioThemeApi;
+    HealthioCursor?: HealthioCursorApi;
     jQuery?: (sel: string) => { fadeOut: (ms: number) => void };
     ScrollTrigger?: { refresh: () => void; getAll: () => Array<{ kill: () => void }> };
   }
@@ -40,7 +46,9 @@ declare global {
 
 function loadScript(src: string) {
   return new Promise<void>((resolve) => {
-    const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"], script[data-healthio-src="${src}"]`);
+    const existing = document.querySelector<HTMLScriptElement>(
+      `script[src="${src}"], script[data-healthio-src="${src}"]`,
+    );
     if (existing) {
       resolve();
       return;
@@ -87,6 +95,12 @@ async function waitForTheme(timeoutMs = 4000) {
   }
 }
 
+function ensureCursor() {
+  // Re-mount after React hydration so the cursor isn't wiped from <body>
+  window.HealthioCursor?.destroy?.();
+  window.HealthioCursor?.init?.();
+}
+
 export function HealthioScripts() {
   const pathname = usePathname();
   const firstLoad = useRef(true);
@@ -112,12 +126,18 @@ export function HealthioScripts() {
           firstLoad.current = false;
           if (!window.HealthioTheme?.isInitialized?.()) {
             window.HealthioTheme?.init?.();
+          } else {
+            // Theme already booted from DOMContentLoaded; cursor may have been
+            // removed by hydration — remount it now.
+            ensureCursor();
           }
         } else {
           window.HealthioTheme?.destroy?.();
           window.HealthioTheme?.init?.();
         }
 
+        // Always re-assert cursor after paint (exact hover / pointer states)
+        ensureCursor();
         window.ScrollTrigger?.refresh?.();
         hidePreloaderFallback();
       } finally {
