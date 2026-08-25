@@ -1,0 +1,297 @@
+/* Novimid Brand Overlay — 2026 */
+
+html,
+body {
+	background: var(--white-color);
+	font-family: var(--default-font);
+	font-weight: 300;
+	font-size: 15px;
+	color: var(--text-color);
+	letter-spacing: 0;
+}
+
+p {
+	font-weight: 300;
+	line-height: 1.7;
+	color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--default-font);
+	font-weight: 300;
+	color: var(--primary-color);
+	letter-spacing: -0.02em;
+}
+
+a:hover {
+	color: var(--sage);
+}
+
+::selection {
+	color: var(--white-color);
+	background-color: var(--accent-color);
+	filter: none;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar {
+	background-color: var(--cloud);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--sage);
+}
+
+.btn-default {
+	font-family: var(--default-font);
+	font-weight: 400;
+	font-size: 15px;
+	border-radius: 4px;
+	padding: 16px 48px 16px 22px;
+	letter-spacing: 0.01em;
+}
+
+.btn-default::before {
+	border-radius: 4px;
+	width: 28px;
+	height: 28px;
+	right: 10px;
+}
+
+.readmore-btn {
+	font-weight: 400;
+}
+
+.preloader {
+	background: var(--white-color);
+}
+
+.dark-section {
+	background-color: var(--accent-color);
+	background-image: none;
+}
+
+.dark-section::before,
+.dark-section::after {
+	background-image: none;
+	width: 0;
+	height: 0;
+	content: none;
+}
+
+.hero.dark-section::before {
+	content: "";
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(180deg, rgba(44, 58, 53, 0.28) 0%, rgba(44, 58, 53, 0.86) 100%);
+}
+
+.page-header.dark-section::before {
+	content: "";
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(44, 58, 53, 0.72);
+}
+
+.section-title .section-sub-title {
+	font-size: 11px;
+	font-weight: 400;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--sage-mid) !important;
+	background: transparent !important;
+	border-radius: 0;
+	padding: 0 0 0 14px;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+.section-title .section-sub-title::before {
+	left: 0;
+	width: 6px;
+	height: 6px;
+	background: var(--sage);
+}
+
+.hero-content .section-title .section-sub-title,
+.dark-section .section-title .section-sub-title {
+	color: var(--sage-mist) !important;
+	background: transparent !important;
+}
+
+.hero-content .section-title .section-sub-title::before,
+.dark-section .section-title .section-sub-title::before {
+	background: var(--sage-mist);
+}
+
+.section-title h1 {
+	font-family: var(--display-font);
+	font-weight: 400;
+	font-size: clamp(40px, 5.4vw, 56px);
+	letter-spacing: -0.02em;
+	line-height: 1.12;
+}
+
+.section-title h2 {
+	font-family: var(--default-font);
+	font-weight: 300;
+	font-size: clamp(28px, 3.4vw, 32px);
+	letter-spacing: -0.025em;
+	line-height: 1.2;
+}
+
+.hero-content .section-title h1 {
+	font-family: var(--display-font);
+	font-weight: 400;
+}
+
+header.main-header .header-sticky {
+	border-radius: 24px;
+	border: 0.5px solid var(--divider-color);
+	box-shadow: none;
+}
+
+header.main-header .header-sticky.active {
+	border: 0.5px solid var(--divider-color);
+	box-shadow: none;
+}
+
+.main-menu ul li a {
+	font-weight: 400;
+	font-size: 15px;
+	color: var(--forest);
+}
+
+.main-menu ul ul {
+	border-radius: 12px;
+	border: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar-brand {
+	display: inline-flex;
+	align-items: center;
+}
+
+.navbar-brand img,
+.footer-logo img {
+	height: 36px;
+	width: auto;
+}
+
+.slicknav_btn {
+	border-radius: 4px;
+}
+
+.hero {
+	min-height: 780px;
+}
+
+.hero-content-body {
+	border-top: 0.5px solid var(--dark-divider-color);
+}
+
+.video-play-button a span {
+	background: var(--sage);
+}
+
+.about-us,
+.why-choose-us,
+.our-case-study,
+.our-team,
+.our-module,
+.our-faqs,
+.our-blog {
+	background: var(--white-color);
+}
+
+.our-services,
+.our-testimonials,
+.light-section {
+	background: var(--cloud);
+}
+
+.service-item,
+.case-study-item,
+.post-item,
+.team-item,
+.testimonial-item,
+.our-module-item,
+.faq-accordion,
+.contact-form,
+.pricing-item,
+.gallery-item,
+.image-gallery-item,
+.video-gallery-item {
+	border-radius: 12px;
+}
+
+.service-item,
+.case-study-item,
+.post-item {
+	border: 0.5px solid var(--divider-color);
+	box-shadow: none;
+	overflow: hidden;
+}
+
+.service-item:hover,
+.case-study-item:hover,
+.post-item:hover,
+.team-item:hover,
+.our-module-item:hover {
+	transform: translateY(-4px);
+	box-shadow: none;
+}
+
+.icon-box {
+	border-radius: 8px;
+}
+
+input,
+textarea,
+select,
+.form-control {
+	border-radius: 8px !important;
+	border-width: 0.5px !important;
+	border-color: var(--divider-color) !important;
+	font-family: var(--default-font);
+	font-weight: 300;
+	background: var(--white-color) !important;
+}
+
+.main-footer {
+	background-image: none;
+}
+
+.main-footer.dark-section {
+	background-color: var(--midnight-forest);
+}
+
+.footer-copyright {
+	border-top: 0.5px solid var(--dark-divider-color);
+}
+
+.cb-cursor:before {
+	background: var(--sage);
+}
+
+@media (max-width: 991px) {
+	.section-title h1 {
+		font-size: 36px;
+	}
+
+	.section-title h2 {
+		font-size: 26px;
+	}
+
+	header.main-header .header-sticky {
+		border-radius: 16px;
+	}
+}

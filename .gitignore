@@ -1,0 +1,28 @@
+﻿# dependencies
+node_modules/
+.tools/
+
+# next.js
+.next/
+out/
+build/
+dist/
+
+# env / secrets
+.env
+.env*.local
+*.pem
+
+# logs / caches
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.tsbuildinfo
+.turbo/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
