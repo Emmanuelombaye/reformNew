@@ -1,247 +1,75 @@
 (function ($) {
-    "use strict";
-	
-	var $window = $(window); 
-	var $body = $('body'); 
+	"use strict";
 
-	/* Preloader Effect */
-	$window.on('load', function(){
+	var $window = $(window);
+	var headingGen = 0;
+	var state = {
+		swipers: [],
+		initialized: false,
+	};
+
+	function hidePreloader() {
 		$(".preloader").fadeOut(600);
-	});
-	if (document.readyState === "complete") {
-		$(".preloader").fadeOut(600);
 	}
 
-	/* Sticky Header */	
-	if($('.active-sticky-header').length){
-		$window.on('resize', function(){
-			setHeaderHeight();
-		});
-
-		function setHeaderHeight(){
-	 		$("header.active-sticky-header").css("height", $('header.active-sticky-header .header-sticky').outerHeight());
-		}	
-	
-		$window.on("scroll", function() {
-			var fromTop = $(window).scrollTop();
-			setHeaderHeight();
-			var headerHeight = $('header.active-sticky-header .header-sticky').outerHeight()
-			$("header.active-sticky-header .header-sticky").toggleClass("hide", (fromTop > headerHeight + 100));
-			$("header.active-sticky-header .header-sticky").toggleClass("active", (fromTop > 600));
-		});
-	}	
-	
-	/* Slick Menu JS */
-	$('#menu').slicknav({
-		label : '',
-		prependTo : '.responsive-menu'
-	});
-
-	if($("a[href='#top']").length){
-		$(document).on("click", "a[href='#top']", function() {
-			$("html, body").animate({ scrollTop: 0 }, "slow");
-			return false;
-		});
-	}
-
-	/* Testimonial Slider JS */
-	if ($('.testimonial-slider').length) {
-		const testimonial_slider = new Swiper('.testimonial-slider .swiper', {
-			slidesPerView : 1,
-			speed: 1500,
-			spaceBetween: 30,
-			loop: true,
-			autoplay: {
-				delay: 5000,
-			},
-			pagination: {
-				el: '.testimonial-pagination',
-				clickable: true,
-			},
-			breakpoints: {
-				768:{
-					slidesPerView: 2,
-				}
-			}
-		});
-	}
-
-	/* Testimonial Slider Metal JS */
-	if ($('.testimonial-slider-metal').length) {
-		const testimonial_slider_metal = new Swiper('.testimonial-slider-metal .swiper', {
-			slidesPerView : 1,
-			speed: 1500,
-			spaceBetween: 30,
-			loop: true,
-			autoplay: {
-				delay: 5000,
-			},
-			navigation: {
-				nextEl: '.testimonial-button-next-metal',
-				prevEl: '.testimonial-button-prev-metal',
-			},
-		});
-	}
-
-	/* Company Support Slider Stone JS */
-	if ($('.company-supports-slider-stone').length) {
-		const company_supports_slider_stone = new Swiper('.company-supports-slider-stone .swiper', {
-			slidesPerView : 2,
-			speed: 2000,
-			spaceBetween: 40,
-			loop: true,
-			autoplay: {
-				delay: 5000,
-			},
-			breakpoints: {
-				768:{
-				  	slidesPerView: 	3,
-				}
-			}
-		});
-	}
-
-	/* Expertise Company Support Slider  Stone JS */
-	if ($('.expertise-company-supports-slider-stone').length) {
-		const company_supports_slider= new Swiper('.expertise-company-supports-slider-stone .swiper', {
-			slidesPerView : 2,
-			speed: 2000,
-			spaceBetween: 20,
-			loop: true,
-			autoplay: {
-				delay: 5000,
-			},
-			breakpoints: {
-				767:{
-					slidesPerView: 4,
-				},
-				1025:{
-					slidesPerView: 5,
-				}
-			}
-		});
-	}
-
-	/* Case Study Slider Stone JS */
-	if ($('.case-study-slider-stone').length) {
-		const case_study_slider_stone = new Swiper('.case-study-slider-stone .swiper', {
-			slidesPerView : 1,
-			speed: 2500,
-			spaceBetween: 30,
-			loop: true,
-			autoplay: {
-				delay: 5000,
-			},
-			pagination: {
-				el: '.case-study-pagination-stone',
-				clickable: true,
-			},
-			breakpoints:{
-				767:{
-					slidesPerView: 2,
-				},
-				1025:{
-					slidesPerView: 3,
-				},
-			}
-		});
-	}
-
-	/* Testimonial Slider Stone JS */
-	if ($('.testimonial-slider-stone').length) {
-		const testimonial_slider_stone = new Swiper('.testimonial-slider-stone .swiper', {
-			slidesPerView : 1,
-			speed: 1500,
-			spaceBetween: 30,
-			loop: true,
-			autoplay: {
-				delay: 5000,
-			},
-			pagination: {
-				el: '.testimonials-pagination-stone',
-				clickable: true,
-			},
-			breakpoints: {
-				768:{
-					slidesPerView: 2,
-				},
-				1025:{
-					slidesPerView: 3,
-				}
-			}
-		});
-	}
-	
-	/* Skill Bar */
-	if ($('.skills-progress-bar').length) {
-		$('.skills-progress-bar').waypoint(function() {
-			$('.skillbar').each(function() {
-				$(this).find('.count-bar').animate({
-				width:$(this).attr('data-percent')
-				},2000);
+	function destroy() {
+		headingGen += 1;
+		if (window.ScrollTrigger && typeof window.ScrollTrigger.getAll === "function") {
+			window.ScrollTrigger.getAll().forEach(function (t) {
+				t.kill();
 			});
-		},{
-			offset: '70%'
+		}
+
+		state.swipers.forEach(function (swiper) {
+			try {
+				swiper.destroy(true, true);
+			} catch (e) {}
 		});
+		state.swipers = [];
+
+		$window.off(".healthio");
+		$(document).off(".healthio");
+		$("#contactForm").off(".healthio");
+		$(".service-item-metal").off(".healthio");
+		$(".gallery-items").off(".healthio");
+		$(".popup-video").off(".healthio");
+
+		if ($.fn.magnificPopup) {
+			try {
+				$(".gallery-items").magnificPopup("destroy");
+			} catch (e) {}
+			try {
+				$(".popup-video").magnificPopup("destroy");
+			} catch (e) {}
+		}
+
+		$(".responsive-menu .slicknav_menu").remove();
+		$(".slicknav_menu").remove();
+
+		$("header.active-sticky-header").css("height", "");
+		$("header.active-sticky-header .header-sticky").removeClass("hide active");
+
+		state.initialized = false;
 	}
 
-	/* Youtube Background Video JS */
-	if ($('#herovideo').length) {
-		var myPlayer = $("#herovideo").YTPlayer();
-	}
-
-	/* Init Counter */
-	if ($('.counter').length) {
-		$('.counter').counterUp({ delay: 6, time: 3000 });
-	}
-
-	/* Image Reveal Animation */
-	if ($('.reveal').length) {
-        gsap.registerPlugin(ScrollTrigger);
-        let revealContainers = document.querySelectorAll(".reveal");
-        revealContainers.forEach((container) => {
-            let image = container.querySelector("img");
-            let tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: container,
-                    toggleActions: "play none none none"
-                }
-            });
-            tl.set(container, {
-                autoAlpha: 1
-            });
-            tl.from(container, 1, {
-                xPercent: -100,
-                ease: Power2.out
-            });
-            tl.from(image, 1, {
-                xPercent: 100,
-                scale: 1,
-                delay: -1,
-                ease: Power2.out
-            });
-        });
-    }
-
-	/* Text Effect Animation */
 	function initHeadingAnimation() {
-		
-		if($('.text-effect').length) {
-			var textheading = $(".text-effect");
+		if (typeof gsap === "undefined" || typeof SplitText === "undefined") return;
 
-			if(textheading.length === 0) return; gsap.registerPlugin(SplitText); textheading.each(function(index, el) {
-				
-				el.split = new SplitText(el, { 
+		gsap.registerPlugin(SplitText);
+		if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+		if ($(".text-effect").length) {
+			$(".text-effect").each(function (index, el) {
+				el.split = new SplitText(el, {
 					type: "lines,words,chars",
-					linesClass: "split-line"
+					linesClass: "split-line",
 				});
-				
-				if( $(el).hasClass('text-effect') ){
-					gsap.set(el.split.chars, {
-						opacity: .3,
-						x: "-7",
-					});
-				}
+
+				gsap.set(el.split.chars, {
+					opacity: 0.3,
+					x: "-7",
+				});
+
 				el.anim = gsap.to(el.split.chars, {
 					scrollTrigger: {
 						trigger: el,
@@ -250,65 +78,55 @@
 						markers: false,
 						scrub: 1,
 					},
-
 					x: "0",
 					y: "0",
 					opacity: 1,
-					duration: .7,
+					duration: 0.7,
 					stagger: 0.2,
 				});
-				
 			});
 		}
-		
-		if ($('.text-anime-style-1').length) {
-			let staggerAmount 	= 0.05,
-				translateXValue = 0,
-				delayValue 		= 0.5,
-			   animatedTextElements = document.querySelectorAll('.text-anime-style-1');
-			
-			animatedTextElements.forEach((element) => {
-				let animationSplitText = new SplitText(element, { type: "chars, words" });
-					gsap.from(animationSplitText.words, {
+
+		if ($(".text-anime-style-1").length) {
+			var staggerAmount1 = 0.05;
+			var delayValue1 = 0.5;
+			document.querySelectorAll(".text-anime-style-1").forEach(function (element) {
+				var animationSplitText = new SplitText(element, { type: "chars, words" });
+				gsap.from(animationSplitText.words, {
 					duration: 1,
-					delay: delayValue,
+					delay: delayValue1,
 					x: 20,
 					autoAlpha: 0,
-					stagger: staggerAmount,
+					stagger: staggerAmount1,
 					scrollTrigger: { trigger: element, start: "top 85%" },
-					});
-			});		
+				});
+			});
 		}
-		
-		if ($('.text-anime-style-2').length) {				
-			let	 staggerAmount 		= 0.03,
-				 translateXValue	= 20,
-				 delayValue 		= 0.1,
-				 easeType 			= "power2.out",
-				 animatedTextElements = document.querySelectorAll('.text-anime-style-2');
-			
-			animatedTextElements.forEach((element) => {
-				let animationSplitText = new SplitText(element, { type: "chars, words" });
-					gsap.from(animationSplitText.chars, {
-						duration: 1,
-						delay: delayValue,
-						x: translateXValue,
-						autoAlpha: 0,
-						stagger: staggerAmount,
-						ease: easeType,
-						scrollTrigger: { trigger: element, start: "top 85%"},
-					});
-			});		
+
+		if ($(".text-anime-style-2").length) {
+			var staggerAmount2 = 0.03;
+			var translateXValue = 20;
+			var delayValue2 = 0.1;
+			var easeType = "power2.out";
+			document.querySelectorAll(".text-anime-style-2").forEach(function (element) {
+				var animationSplitText = new SplitText(element, { type: "chars, words" });
+				gsap.from(animationSplitText.chars, {
+					duration: 1,
+					delay: delayValue2,
+					x: translateXValue,
+					autoAlpha: 0,
+					stagger: staggerAmount2,
+					ease: easeType,
+					scrollTrigger: { trigger: element, start: "top 85%" },
+				});
+			});
 		}
-		
-		if ($('.text-anime-style-3').length) {		
-			let	animatedTextElements = document.querySelectorAll('.text-anime-style-3');
-			
-			 animatedTextElements.forEach((element) => {
-				//Reset if needed
+
+		if ($(".text-anime-style-3").length) {
+			document.querySelectorAll(".text-anime-style-3").forEach(function (element) {
 				if (element.animation) {
 					element.animation.progress(1).kill();
-					element.split.revert();
+					if (element.split) element.split.revert();
 				}
 
 				element.split = new SplitText(element, {
@@ -316,14 +134,13 @@
 					linesClass: "split-line",
 				});
 				gsap.set(element, { perspective: 400 });
-
 				gsap.set(element.split.chars, {
 					opacity: 0,
 					x: "50",
 				});
 
 				element.animation = gsap.to(element.split.chars, {
-					scrollTrigger: { trigger: element,	start: "top 90%" },
+					scrollTrigger: { trigger: element, start: "top 90%" },
 					x: "0",
 					y: "0",
 					rotateX: "0",
@@ -332,125 +149,323 @@
 					ease: Back.easeOut,
 					stagger: 0.02,
 				});
-			});		
-		}
-	}
-	
-	if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => {
-            initHeadingAnimation();
-        });
-    } else {
-        window.addEventListener("load", initHeadingAnimation);
-    }
-
-	/* Parallaxie js */
-	var $parallaxie = $('.parallaxie');
-	if($parallaxie.length && ($window.width() > 1024))
-	{
-		if ($window.width() > 768) {
-			$parallaxie.parallaxie({
-				speed: 0.55,
-				offset: 0,
 			});
 		}
 	}
 
-	/* Zoom Gallery screenshot */
-	$('.gallery-items').magnificPopup({
-		delegate: 'a',
-		type: 'image',
-		closeOnContentClick: false,
-		closeBtnInside: false,
-		mainClass: 'mfp-with-zoom',
-		image: {
-			verticalFit: true,
-		},
-		gallery: {
-			enabled: true
-		},
-		zoom: {
-			enabled: true,
-			duration: 300, // don't foget to change the duration also in CSS
-			opener: function(element) {
-			  return element.find('img');
+	function init() {
+		destroy();
+
+		hidePreloader();
+
+		/* Sticky Header */
+		if ($(".active-sticky-header").length) {
+			function setHeaderHeight() {
+				$("header.active-sticky-header").css(
+					"height",
+					$("header.active-sticky-header .header-sticky").outerHeight()
+				);
 			}
-		}
-	});
 
-	/* Contact form validation */
-	var $contactform = $("#contactForm");
-	$contactform.validator({focus: false}).on("submit", function (event) {
-		if (!event.isDefaultPrevented()) {
-			event.preventDefault();
-			submitForm();
+			$window.on("resize.healthio", setHeaderHeight);
+			$window.on("scroll.healthio", function () {
+				var fromTop = $(window).scrollTop();
+				setHeaderHeight();
+				var headerHeight = $("header.active-sticky-header .header-sticky").outerHeight();
+				$("header.active-sticky-header .header-sticky").toggleClass("hide", fromTop > headerHeight + 100);
+				$("header.active-sticky-header .header-sticky").toggleClass("active", fromTop > 600);
+			});
+			setHeaderHeight();
 		}
-	});
 
-	function submitForm(){
-		/* Ajax call to submit form */
-		$.ajax({
-			type: "POST",
-			url: "/api/contact",
-			data: $contactform.serialize(),
-			success : function(text){
-				if (text === "success"){
-					formSuccess();
-				} else {
-					submitMSG(false,text);
-				}
-			}
+		/* Slick Menu JS */
+		if ($("#menu").length && $.fn.slicknav) {
+			$("#menu").slicknav({
+				label: "",
+				prependTo: ".responsive-menu",
+			});
+		}
+
+		if ($("a[href='#top']").length) {
+			$(document).on("click.healthio", "a[href='#top']", function () {
+				$("html, body").animate({ scrollTop: 0 }, "slow");
+				return false;
+			});
+		}
+
+		function addSwiper(selector, options) {
+			if (!$(selector).length || typeof Swiper === "undefined") return;
+			state.swipers.push(new Swiper(selector, options));
+		}
+
+		/* Testimonial Slider JS */
+		addSwiper(".testimonial-slider .swiper", {
+			slidesPerView: 1,
+			speed: 1500,
+			spaceBetween: 30,
+			loop: true,
+			autoplay: { delay: 5000 },
+			pagination: { el: ".testimonial-pagination", clickable: true },
+			breakpoints: { 768: { slidesPerView: 2 } },
 		});
-	}
 
-	function formSuccess(){
-		$contactform[0].reset();
-		submitMSG(true, "Message Sent Successfully!")
-	}
-
-	function submitMSG(valid, msg){
-		if(valid){
-			var msgClasses = "h4 text-success";
-		} else {
-			var msgClasses = "h4 text-danger";
-		}
-		$("#msgSubmit").removeClass().addClass(msgClasses).text(msg);
-	}
-	/* Contact form validation end */
-
-	/* Animated Wow Js */	
-	new WOW().init();
-
-	/* Popup Video */
-	if ($('.popup-video').length) {
-		$('.popup-video').magnificPopup({
-			type: 'iframe',
-			mainClass: 'mfp-fade',
-			removalDelay: 160,
-			preloader: false,
-			fixedContentPos: true
+		/* Testimonial Slider Metal JS */
+		addSwiper(".testimonial-slider-metal .swiper", {
+			slidesPerView: 1,
+			speed: 1500,
+			spaceBetween: 30,
+			loop: true,
+			autoplay: { delay: 5000 },
+			navigation: {
+				nextEl: ".testimonial-button-next-metal",
+				prevEl: ".testimonial-button-prev-metal",
+			},
 		});
-	}
 
-	/* Service Item List Metal Start */
-	var $service_item_list_metal = $('.service-item-list-metal');
-	if ($service_item_list_metal.length) {
-		var $service_item_metal = $service_item_list_metal.find('.service-item-metal');
+		/* Company Support Slider Stone JS */
+		addSwiper(".company-supports-slider-stone .swiper", {
+			slidesPerView: 2,
+			speed: 2000,
+			spaceBetween: 40,
+			loop: true,
+			autoplay: { delay: 5000 },
+			breakpoints: { 768: { slidesPerView: 3 } },
+		});
 
-		if ($service_item_metal.length) {
-			$service_item_metal.on({
-				mouseenter: function () {
-					if (!$(this).hasClass('active')) {
-						$service_item_metal.removeClass('active'); 
-						$(this).addClass('active'); 
-					}
+		/* Expertise Company Support Slider Stone JS */
+		addSwiper(".expertise-company-supports-slider-stone .swiper", {
+			slidesPerView: 2,
+			speed: 2000,
+			spaceBetween: 20,
+			loop: true,
+			autoplay: { delay: 5000 },
+			breakpoints: {
+				767: { slidesPerView: 4 },
+				1025: { slidesPerView: 5 },
+			},
+		});
+
+		/* Case Study Slider Stone JS */
+		addSwiper(".case-study-slider-stone .swiper", {
+			slidesPerView: 1,
+			speed: 2500,
+			spaceBetween: 30,
+			loop: true,
+			autoplay: { delay: 5000 },
+			pagination: { el: ".case-study-pagination-stone", clickable: true },
+			breakpoints: {
+				767: { slidesPerView: 2 },
+				1025: { slidesPerView: 3 },
+			},
+		});
+
+		/* Testimonial Slider Stone JS */
+		addSwiper(".testimonial-slider-stone .swiper", {
+			slidesPerView: 1,
+			speed: 1500,
+			spaceBetween: 30,
+			loop: true,
+			autoplay: { delay: 5000 },
+			pagination: { el: ".testimonials-pagination-stone", clickable: true },
+			breakpoints: {
+				768: { slidesPerView: 2 },
+				1025: { slidesPerView: 3 },
+			},
+		});
+
+		/* Skill Bar */
+		if ($(".skills-progress-bar").length && $.fn.waypoint) {
+			$(".skills-progress-bar").waypoint(
+				function () {
+					$(".skillbar").each(function () {
+						$(this)
+							.find(".count-bar")
+							.animate(
+								{
+									width: $(this).attr("data-percent"),
+								},
+								2000
+							);
+					});
 				},
-				mouseleave: function () {
-					// Optional: Add logic for mouse leave if needed
-				}
+				{ offset: "70%" }
+			);
+		}
+
+		/* Youtube Background Video JS */
+		if ($("#herovideo").length && $.fn.YTPlayer) {
+			$("#herovideo").YTPlayer();
+		}
+
+		/* Init Counter */
+		if ($(".counter").length && $.fn.counterUp) {
+			$(".counter").counterUp({ delay: 6, time: 3000 });
+		}
+
+		/* Image Reveal Animation */
+		if ($(".reveal").length && typeof gsap !== "undefined") {
+			if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+			document.querySelectorAll(".reveal").forEach(function (container) {
+				var image = container.querySelector("img");
+				if (!image) return;
+				var tl = gsap.timeline({
+					scrollTrigger: {
+						trigger: container,
+						toggleActions: "play none none none",
+					},
+				});
+				tl.set(container, { autoAlpha: 1 });
+				tl.from(container, 1, {
+					xPercent: -100,
+					ease: Power2.out,
+				});
+				tl.from(image, 1, {
+					xPercent: 100,
+					scale: 1,
+					delay: -1,
+					ease: Power2.out,
+				});
 			});
 		}
-	}
-	/* Service Item List Metal End */
 
+		/* Text Effect Animation — wait for fonts like the HTML demo */
+		var thisGen = ++headingGen;
+		function runHeadings() {
+			if (thisGen !== headingGen) return;
+			initHeadingAnimation();
+			if (window.ScrollTrigger) ScrollTrigger.refresh();
+		}
+
+		if (document.fonts && document.fonts.ready) {
+			document.fonts.ready.then(runHeadings);
+		} else {
+			runHeadings();
+		}
+
+		$window.on("load.healthio", function () {
+			if (window.ScrollTrigger) ScrollTrigger.refresh();
+		});
+
+		/* Parallaxie js */
+		var $parallaxie = $(".parallaxie");
+		if ($parallaxie.length && $window.width() > 1024 && $.fn.parallaxie) {
+			if ($window.width() > 768) {
+				$parallaxie.parallaxie({
+					speed: 0.55,
+					offset: 0,
+				});
+			}
+		}
+
+		/* Zoom Gallery screenshot */
+		if ($(".gallery-items").length && $.fn.magnificPopup) {
+			$(".gallery-items").magnificPopup({
+				delegate: "a",
+				type: "image",
+				closeOnContentClick: false,
+				closeBtnInside: false,
+				mainClass: "mfp-with-zoom",
+				image: { verticalFit: true },
+				gallery: { enabled: true },
+				zoom: {
+					enabled: true,
+					duration: 300,
+					opener: function (element) {
+						return element.find("img");
+					},
+				},
+			});
+		}
+
+		/* Contact form validation */
+		var $contactform = $("#contactForm");
+		if ($contactform.length && $.fn.validator) {
+			$contactform.validator({ focus: false }).on("submit.healthio", function (event) {
+				if (!event.isDefaultPrevented()) {
+					event.preventDefault();
+					submitForm();
+				}
+			});
+
+			function submitForm() {
+				$.ajax({
+					type: "POST",
+					url: "/api/contact",
+					data: $contactform.serialize(),
+					success: function (text) {
+						if (text === "success") {
+							formSuccess();
+						} else {
+							submitMSG(false, text);
+						}
+					},
+				});
+			}
+
+			function formSuccess() {
+				$contactform[0].reset();
+				submitMSG(true, "Message Sent Successfully!");
+			}
+
+			function submitMSG(valid, msg) {
+				var msgClasses = valid ? "h4 text-success" : "h4 text-danger";
+				$("#msgSubmit").removeClass().addClass(msgClasses).text(msg);
+			}
+		}
+
+		/* Animated Wow Js */
+		if (typeof WOW !== "undefined") {
+			new WOW({
+				boxClass: "wow",
+				animateClass: "animated",
+				offset: 0,
+				mobile: true,
+				live: true,
+			}).init();
+		}
+
+		/* Popup Video */
+		if ($(".popup-video").length && $.fn.magnificPopup) {
+			$(".popup-video").magnificPopup({
+				type: "iframe",
+				mainClass: "mfp-fade",
+				removalDelay: 160,
+				preloader: false,
+				fixedContentPos: true,
+			});
+		}
+
+		/* Service Item List Metal */
+		var $service_item_list_metal = $(".service-item-list-metal");
+		if ($service_item_list_metal.length) {
+			var $service_item_metal = $service_item_list_metal.find(".service-item-metal");
+			if ($service_item_metal.length) {
+				$service_item_metal.on("mouseenter.healthio", function () {
+					if (!$(this).hasClass("active")) {
+						$service_item_metal.removeClass("active");
+						$(this).addClass("active");
+					}
+				});
+			}
+		}
+
+		state.initialized = true;
+	}
+
+	window.HealthioTheme = {
+		init: init,
+		destroy: destroy,
+		hidePreloader: hidePreloader,
+		isInitialized: function () {
+			return state.initialized;
+		},
+	};
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", function () {
+			window.HealthioTheme.init();
+		});
+	} else {
+		window.HealthioTheme.init();
+	}
 })(jQuery);

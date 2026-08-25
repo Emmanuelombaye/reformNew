@@ -20,6 +20,26 @@ const stylesheets = [
   "/css/custom.css",
 ];
 
+const themeScripts = [
+  "/js/jquery-3.7.1.min.js",
+  "/js/bootstrap.min.js",
+  "/js/validator.min.js",
+  "/js/jquery.slicknav.js",
+  "/js/swiper-bundle.min.js",
+  "/js/jquery.waypoints.min.js",
+  "/js/jquery.counterup.min.js",
+  "/js/jquery.magnific-popup.min.js",
+  "/js/SmoothScroll.js",
+  "/js/parallaxie.js",
+  "/js/gsap.min.js",
+  "/js/magiccursor.js",
+  "/js/SplitText.min.js",
+  "/js/ScrollTrigger.min.js",
+  "/js/jquery.mb.YTPlayer.min.js",
+  "/js/wow.min.js",
+  "/js/function.js",
+];
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zxx" suppressHydrationWarning>
@@ -32,6 +52,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body suppressHydrationWarning>
         {children}
+        {themeScripts.map((src) => (
+          <script key={src} src={src} async={false} />
+        ))}
         <HealthioScripts />
       </body>
     </html>

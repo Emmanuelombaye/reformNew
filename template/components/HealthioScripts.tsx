@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
-const HEALTHIO_SCRIPTS = [
+const HEALTHIO_LIBS = [
   "/js/jquery-3.7.1.min.js",
   "/js/bootstrap.min.js",
   "/js/validator.min.js",
@@ -22,49 +23,113 @@ const HEALTHIO_SCRIPTS = [
   "/js/function.js",
 ];
 
-let booted = false;
+type HealthioThemeApi = {
+  init: () => void;
+  destroy: () => void;
+  hidePreloader: () => void;
+  isInitialized?: () => boolean;
+};
+
+declare global {
+  interface Window {
+    HealthioTheme?: HealthioThemeApi;
+    jQuery?: (sel: string) => { fadeOut: (ms: number) => void };
+    ScrollTrigger?: { refresh: () => void; getAll: () => Array<{ kill: () => void }> };
+  }
+}
+
+function loadScript(src: string) {
+  return new Promise<void>((resolve) => {
+    const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"], script[data-healthio-src="${src}"]`);
+    if (existing) {
+      resolve();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = src;
+    script.dataset.healthioSrc = src;
+    script.onload = () => {
+      script.dataset.loaded = "1";
+      resolve();
+    };
+    script.onerror = () => resolve();
+    document.body.appendChild(script);
+  });
+}
+
+function hidePreloaderFallback() {
+  if (window.HealthioTheme?.hidePreloader) {
+    window.HealthioTheme.hidePreloader();
+    return;
+  }
+  if (window.jQuery) {
+    window.jQuery(".preloader").fadeOut(600);
+    return;
+  }
+  document.querySelectorAll<HTMLElement>(".preloader").forEach((el) => {
+    el.style.display = "none";
+  });
+}
+
+function waitForPaint() {
+  return new Promise<void>((resolve) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => resolve());
+    });
+  });
+}
+
+async function waitForTheme(timeoutMs = 4000) {
+  const start = Date.now();
+  while (!window.HealthioTheme && Date.now() - start < timeoutMs) {
+    await new Promise((r) => setTimeout(r, 20));
+  }
+}
 
 export function HealthioScripts() {
+  const pathname = usePathname();
+  const firstLoad = useRef(true);
+  const runId = useRef(0);
+
   useEffect(() => {
-    if (booted) return;
-    booted = true;
-
-    const load = (src: string) =>
-      new Promise<void>((resolve) => {
-        if (document.querySelector(`script[data-healthio-src="${src}"]`)) {
-          resolve();
-          return;
-        }
-        const script = document.createElement("script");
-        script.src = src;
-        script.dataset.healthioSrc = src;
-        script.onload = () => resolve();
-        script.onerror = () => resolve();
-        document.body.appendChild(script);
-      });
-
-    const hidePreloader = () => {
-      const jq = (window as unknown as { jQuery?: (sel: string) => { fadeOut: (ms: number) => void } }).jQuery;
-      if (jq) {
-        jq(".preloader").fadeOut(600);
-      } else {
-        document.querySelectorAll<HTMLElement>(".preloader").forEach((el) => {
-          el.style.display = "none";
-        });
-      }
-    };
-
-    const failsafe = window.setTimeout(hidePreloader, 2500);
+    const id = ++runId.current;
+    let cancelled = false;
+    const failsafe = window.setTimeout(hidePreloaderFallback, 4000);
 
     (async () => {
-      for (const src of HEALTHIO_SCRIPTS) {
-        await load(src);
+      try {
+        for (const src of HEALTHIO_LIBS) {
+          if (cancelled || id !== runId.current) return;
+          await loadScript(src);
+        }
+        await waitForTheme();
+        if (cancelled || id !== runId.current) return;
+        await waitForPaint();
+        if (cancelled || id !== runId.current) return;
+
+        if (firstLoad.current) {
+          firstLoad.current = false;
+          if (!window.HealthioTheme?.isInitialized?.()) {
+            window.HealthioTheme?.init?.();
+          }
+        } else {
+          window.HealthioTheme?.destroy?.();
+          window.HealthioTheme?.init?.();
+        }
+
+        window.ScrollTrigger?.refresh?.();
+        hidePreloaderFallback();
+      } finally {
+        window.clearTimeout(failsafe);
       }
-      window.clearTimeout(failsafe);
-      hidePreloader();
-      window.dispatchEvent(new Event("load"));
     })();
-  }, []);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(failsafe);
+    };
+  }, [pathname]);
 
   return null;
 }
