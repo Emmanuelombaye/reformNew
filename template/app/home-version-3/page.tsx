@@ -1,5 +1,5 @@
-import { TemplatePage } from "@/components/TemplatePage";
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  return <TemplatePage file="index-3.html" />;
+  redirect("/");
 }

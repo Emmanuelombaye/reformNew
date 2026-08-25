@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { HealthioScripts } from "@/components/HealthioScripts";
 
 export const metadata: Metadata = {
-  title: "Healthio - Health and Lifestyle Coach HTML Template",
+  title: "novimid — Physician-Directed Weight Loss",
   description:
-    "Start your journey to better health today with personalized coaching, wellness programs, and lasting lifestyle change.",
+    "Weight loss that fits your life. Semaglutide Care and Tirzepatide Care — physician-directed, clinically clear.",
   icons: { icon: "/images/favicon.svg" },
 };
 

@@ -3,8 +3,8 @@ import path from "node:path";
 
 const PAGE_MAP: Record<string, string> = {
   "index.html": "/",
-  "index-2.html": "/home-version-2",
-  "index-3.html": "/home-version-3",
+  "index-2.html": "/",
+  "index-3.html": "/",
   "about.html": "/about-us",
   "services.html": "/services",
   "service-single.html": "/services/personalized-health-coaching",
