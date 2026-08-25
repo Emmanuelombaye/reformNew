@@ -1,9 +1,9 @@
 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_226_59)">
-<path d="M12.4999 0.894531H14.2857C15.2329 0.894531 16.1413 1.27081 16.811 1.94058C17.4808 2.61035 17.8571 3.51876 17.8571 4.46596V12.5017H12.4999V0.894531Z" stroke="#2C3A35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7.14282 12.5H12.5V24.1071H10.7143C9.76705 24.1071 8.85864 23.7309 8.18887 23.0611C7.5191 22.3913 7.14282 21.4829 7.14282 20.5357V12.5Z" stroke="#2C3A35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M24.1071 12.5V14.2857C24.1071 15.2329 23.7308 16.1413 23.061 16.8111C22.3912 17.4809 21.4828 17.8571 20.5356 17.8571H12.4999V12.5H24.1071Z" stroke="#2C3A35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12.4999 7.14453V12.5017H0.892796V10.716C0.892796 9.76876 1.26907 8.86035 1.93884 8.19058C2.60862 7.52081 3.51702 7.14453 4.46422 7.14453L12.4999 7.14453Z" stroke="#2C3A35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.4999 0.894531H14.2857C15.2329 0.894531 16.1413 1.27081 16.811 1.94058C17.4808 2.61035 17.8571 3.51876 17.8571 4.46596V12.5017H12.4999V0.894531Z" stroke="#033236" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.14282 12.5H12.5V24.1071H10.7143C9.76705 24.1071 8.85864 23.7309 8.18887 23.0611C7.5191 22.3913 7.14282 21.4829 7.14282 20.5357V12.5Z" stroke="#033236" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.1071 12.5V14.2857C24.1071 15.2329 23.7308 16.1413 23.061 16.8111C22.3912 17.4809 21.4828 17.8571 20.5356 17.8571H12.4999V12.5H24.1071Z" stroke="#033236" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.4999 7.14453V12.5017H0.892796V10.716C0.892796 9.76876 1.26907 8.86035 1.93884 8.19058C2.60862 7.52081 3.51702 7.14453 4.46422 7.14453L12.4999 7.14453Z" stroke="#033236" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <defs>
 <clipPath id="clip0_226_59">

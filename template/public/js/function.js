@@ -31,8 +31,6 @@
 		$(document).off(".healthio");
 		$("#contactForm").off(".healthio");
 		$(".service-item-metal").off(".healthio");
-		$(".gallery-items").off(".healthio");
-		$(".popup-video").off(".healthio");
 
 		if ($.fn.magnificPopup) {
 			try {
@@ -155,10 +153,8 @@
 
 	function init() {
 		destroy();
-
 		hidePreloader();
 
-		/* Sticky Header */
 		if ($(".active-sticky-header").length) {
 			function setHeaderHeight() {
 				$("header.active-sticky-header").css(
@@ -178,7 +174,6 @@
 			setHeaderHeight();
 		}
 
-		/* Slick Menu JS */
 		if ($("#menu").length && $.fn.slicknav) {
 			$("#menu").slicknav({
 				label: "",
@@ -198,7 +193,6 @@
 			state.swipers.push(new Swiper(selector, options));
 		}
 
-		/* Testimonial Slider JS */
 		addSwiper(".testimonial-slider .swiper", {
 			slidesPerView: 1,
 			speed: 1500,
@@ -209,7 +203,6 @@
 			breakpoints: { 768: { slidesPerView: 2 } },
 		});
 
-		/* Testimonial Slider Metal JS */
 		addSwiper(".testimonial-slider-metal .swiper", {
 			slidesPerView: 1,
 			speed: 1500,
@@ -222,7 +215,6 @@
 			},
 		});
 
-		/* Company Support Slider Stone JS */
 		addSwiper(".company-supports-slider-stone .swiper", {
 			slidesPerView: 2,
 			speed: 2000,
@@ -232,7 +224,6 @@
 			breakpoints: { 768: { slidesPerView: 3 } },
 		});
 
-		/* Expertise Company Support Slider Stone JS */
 		addSwiper(".expertise-company-supports-slider-stone .swiper", {
 			slidesPerView: 2,
 			speed: 2000,
@@ -245,7 +236,6 @@
 			},
 		});
 
-		/* Case Study Slider Stone JS */
 		addSwiper(".case-study-slider-stone .swiper", {
 			slidesPerView: 1,
 			speed: 2500,
@@ -259,7 +249,6 @@
 			},
 		});
 
-		/* Testimonial Slider Stone JS */
 		addSwiper(".testimonial-slider-stone .swiper", {
 			slidesPerView: 1,
 			speed: 1500,
@@ -273,7 +262,6 @@
 			},
 		});
 
-		/* Skill Bar */
 		if ($(".skills-progress-bar").length && $.fn.waypoint) {
 			$(".skills-progress-bar").waypoint(
 				function () {
@@ -292,17 +280,14 @@
 			);
 		}
 
-		/* Youtube Background Video JS */
 		if ($("#herovideo").length && $.fn.YTPlayer) {
 			$("#herovideo").YTPlayer();
 		}
 
-		/* Init Counter */
 		if ($(".counter").length && $.fn.counterUp) {
 			$(".counter").counterUp({ delay: 6, time: 3000 });
 		}
 
-		/* Image Reveal Animation */
 		if ($(".reveal").length && typeof gsap !== "undefined") {
 			if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
 			document.querySelectorAll(".reveal").forEach(function (container) {
@@ -328,7 +313,6 @@
 			});
 		}
 
-		/* Text Effect Animation — wait for fonts like the HTML demo */
 		var thisGen = ++headingGen;
 		function runHeadings() {
 			if (thisGen !== headingGen) return;
@@ -346,7 +330,6 @@
 			if (window.ScrollTrigger) ScrollTrigger.refresh();
 		});
 
-		/* Parallaxie js */
 		var $parallaxie = $(".parallaxie");
 		if ($parallaxie.length && $window.width() > 1024 && $.fn.parallaxie) {
 			if ($window.width() > 768) {
@@ -357,7 +340,6 @@
 			}
 		}
 
-		/* Zoom Gallery screenshot */
 		if ($(".gallery-items").length && $.fn.magnificPopup) {
 			$(".gallery-items").magnificPopup({
 				delegate: "a",
@@ -377,7 +359,6 @@
 			});
 		}
 
-		/* Contact form validation */
 		var $contactform = $("#contactForm");
 		if ($contactform.length && $.fn.validator) {
 			$contactform.validator({ focus: false }).on("submit.healthio", function (event) {
@@ -413,7 +394,6 @@
 			}
 		}
 
-		/* Animated Wow Js */
 		if (typeof WOW !== "undefined") {
 			new WOW({
 				boxClass: "wow",
@@ -424,7 +404,6 @@
 			}).init();
 		}
 
-		/* Popup Video */
 		if ($(".popup-video").length && $.fn.magnificPopup) {
 			$(".popup-video").magnificPopup({
 				type: "iframe",
@@ -435,7 +414,6 @@
 			});
 		}
 
-		/* Service Item List Metal */
 		var $service_item_list_metal = $(".service-item-list-metal");
 		if ($service_item_list_metal.length) {
 			var $service_item_metal = $service_item_list_metal.find(".service-item-metal");

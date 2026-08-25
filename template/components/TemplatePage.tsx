@@ -2,5 +2,8 @@ import { getTemplateBody } from "@/lib/template";
 
 export function TemplatePage({ file }: { file: string }) {
   const html = getTemplateBody(file);
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  // display:contents keeps body > header/section structure identical to the HTML template
+  return (
+    <div style={{ display: "contents" }} dangerouslySetInnerHTML={{ __html: html }} />
+  );
 }

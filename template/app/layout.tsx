@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Healthio - Health and Lifestyle Coach HTML Template",
   description:
     "Start your journey to better health today with personalized coaching, wellness programs, and lasting lifestyle change.",
-  icons: { icon: "/images/favicon.png" },
+  icons: { icon: "/images/favicon.svg" },
 };
 
 const stylesheets = [

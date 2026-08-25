@@ -48,27 +48,17 @@
 /************************************/
 
 :root{
-	--midnight-forest			: #2C3A35;
-	--sage						: #6B8F71;
-	--sage-light				: #8BAE8C;
-	--sage-mist					: #C5D5B0;
-	--cloud						: #F0F4F1;
-	--forest					: #4A5A52;
-	--sage-mid					: #7A9580;
-	--fog						: #B0BDB3;
-	--mist						: #E2E6E3;
-	--primary-color				: #2C3A35;
+	--primary-color				: #111111;
 	--secondary-color			: #FFFFFF;
-	--bg-color					: #F0F4F1;
-	--text-color				: #4A5A52;
-	--accent-color				: #2C3A35;
-	--accent-secondary-color    : #6B8F71;
+	--bg-color					: #F2F4F3;
+	--text-color				: #929292;
+	--accent-color				: #033236;
+	--accent-secondary-color    : #BEFDC8;
 	--white-color				: #FFFFFF;
-	--divider-color				: #E2E6E3;
-	--dark-divider-color		: #FFFFFF1F;
+	--divider-color				: #1111111A;
+	--dark-divider-color		: #FFFFFF1A;
 	--error-color				: rgb(230, 87, 87);
-	--default-font				: "DM Sans", sans-serif;
-	--display-font				: "DM Serif Display", serif;
+	--default-font				: "Stack Sans Headline", sans-serif;
 }
 
 /************************************/
