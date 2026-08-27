@@ -1,6 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" role="img" aria-label="novimid">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="novimid">
+  <defs>
+    <linearGradient id="fav-g1" x1="270.97" y1="77.2" x2="242.9" y2="189.47" gradientUnits="userSpaceOnUse">
+      <stop offset=".45" stop-color="#98b694"/>
+      <stop offset="1" stop-color="#c5d5b0"/>
+    </linearGradient>
+    <linearGradient id="fav-g2" x1="450.91" y1="222.22" x2="494.18" y2="138.01" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6b8f71"/>
+      <stop offset=".3" stop-color="#8bae8c"/>
+      <stop offset="1" stop-color="#c5d5b0"/>
+    </linearGradient>
+    <linearGradient id="fav-g3" x1="265.16" y1="69.37" x2="369.24" y2="162.93" xlink:href="#fav-g2"/>
+  </defs>
   <rect width="64" height="64" rx="14" fill="#2C3A35"/>
-  <path d="M16 48V16h8.5L37 43V16h8v32h-8.5L24 21v27H16z" fill="#6B8F71"/>
-  <path d="M16 48V16h5.5L34 42V16h5.5v32H34L21.5 22V48H16z" fill="#8BAE8C" opacity="0.9"/>
-  <circle cx="47" cy="19" r="3.5" fill="#C5D5B0"/>
+  <g transform="translate(-36.2 4.2) scale(0.205)">
+    <circle fill="#c5d5b0" cx="511.27" cy="32.82" r="28.96"/>
+    <path fill="url(#fav-g1)" d="M250.51,96.39c-28.95.93-41.47,28.5-46.26,44.18v31.96c0,37.42,6.24,65.49,45.22,65.49s42.88-31.19,42.1-62.37c-1.21-48.48,15.27-55.32,17.64-56.05-12.77-11.96-27.24-24.22-58.7-23.21Z"/>
+    <path fill="url(#fav-g2)" d="M511.95,82.88c-31.19,0-37.94,28.07-39.5,37.42-.32,1.89-.73,4.75-1.48,8.09-3.77,47.52-43.36,86.24-67.9,86.24-5.33,0-9.55-.69-12.68-1.48,15.53,15.63,33.52,26.43,63.36,26.43,33.62,0,57.67-16.05,73.29-39.76,9.37-14.23,15.4-33.23,19.49-47.56,10.92-38.2-3.38-69.39-34.56-69.39Z"/>
+    <path fill="url(#fav-g3)" d="M470.96,128.39c-2.97,13.18-11.23,34.01-39.84,34.01-24.41,0-39.19-20.5-50.68-42.1-7.95-14.96-15.52-31.68-18.71-37.42-7.8-14.03-24.95-71.73-84.98-71.73s-72.51,66.27-72.51,91.22v38.2c4.79-15.69,17.31-43.25,46.26-44.18,31.46-1.01,45.93,11.25,58.7,23.21.18-.06.29-.08.29-.08,0,0,26.14,28.05,55.1,63.41,8.94,10.92,16.97,21.35,25.78,30.23,3.13.79,7.35,1.48,12.68,1.48,24.54,0,64.14-38.73,67.9-86.24Z"/>
+  </g>
 </svg>

@@ -21,6 +21,7 @@ export function Footer() {
             ["/", "Home"],
             ["/about-us", "About Us"],
             ["/services", "Services"],
+            ["/ai-coach", "AI Coach"],
             ["/casestudy", "Case Study"],
             ["/blog", "Blog"],
             ["/contact-us", "Contact Us"],
@@ -31,7 +32,15 @@ export function Footer() {
           ))}
         </ul>
       </div>
-      <div className="container copyright">Copyright © 2026 Healthio. All rights reserved.</div>
+      <div className="container copyright">Copyright © 2026 novimid. All rights reserved.</div>
+      <div className="footer-trust-strip">
+        <div className="container">
+          <div className="footer-trust-badges">
+            <img src="/images/badge-usa-pharmacy.png" alt="Compounded by licensed pharmacies in the USA" />
+            <img src="/images/badge-hipaa.png" alt="HIPAA compliant — data protected" />
+          </div>
+        </div>
+      </div>
     </footer>
   );
 }

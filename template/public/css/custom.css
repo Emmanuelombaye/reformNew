@@ -2521,6 +2521,54 @@ header.main-header .header-sticky.active{
 	margin-top: 80px;
 }
 
+.footer-trust-strip{
+	position: relative;
+	border-top: 1px solid var(--dark-divider-color);
+	padding: 72px 0 96px;
+	margin-top: 0;
+	overflow: hidden;
+}
+
+.footer-trust-strip::before{
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: url("../images/logo-white.svg") center center / min(520px, 70vw) no-repeat;
+	opacity: 0.06;
+	pointer-events: none;
+}
+
+.footer-trust-strip .container{
+	position: relative;
+	z-index: 1;
+}
+
+.footer-trust-badges{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 56px 96px;
+	margin: 0;
+	padding: 0;
+}
+
+.footer-trust-badge{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 1 auto;
+}
+
+.footer-trust-badge img{
+	display: block;
+	width: auto;
+	height: auto;
+	max-height: 132px;
+	max-width: min(440px, 46vw);
+	object-fit: contain;
+}
+
 .footer-menu ul{
 	list-style: none;
 	display: flex;
@@ -10892,4 +10940,314 @@ header.main-header .header-sticky.active{
 		flex-direction: column-reverse;
 		padding: 15px 0;
 	}
+}
+
+/************************************/
+/*** 	   AI Coach page		  ***/
+/************************************/
+
+.page-header.page-header-coach{
+	background-image: url('../images/ai-coach-hero.jpg');
+}
+
+.page-ai-coach .service-item-content p{
+	margin-top: 12px;
+	line-height: 1.7;
+}
+
+.page-ai-coach .coach-proof{
+	color: var(--accent-color);
+	font-weight: 500;
+	margin-top: 10px;
+}
+
+.page-ai-coach .our-core-features .about-us-counter-item{
+	text-align: center;
+	padding: 30px 16px;
+}
+
+.page-ai-coach .our-core-features .about-us-counter-item h2,
+.page-ai-coach .our-core-features .about-us-counter-item p{
+	color: var(--white-color);
+}
+
+.coach-metric-tabs{
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.coach-metric-tab{
+	text-align: left;
+	border: 1px solid var(--divider-color);
+	background: var(--white-color);
+	border-radius: 12px;
+	padding: 18px 20px;
+	transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.coach-metric-tab span{
+	display: block;
+	color: var(--primary-color);
+	font-size: 18px;
+	margin-bottom: 8px;
+}
+
+.coach-metric-tab p{
+	margin: 0;
+	line-height: 1.6;
+	color: var(--text-color);
+}
+
+.coach-metric-tab.active,
+.coach-metric-tab:hover{
+	border-color: var(--accent-color);
+	transform: translateY(-3px);
+}
+
+.coach-metric-panels{
+	background: var(--bg-color);
+	border-radius: 16px;
+	padding: 32px;
+	min-height: 320px;
+	animation: coachFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.coach-metric-panel{
+	display: none;
+}
+
+.coach-metric-panel.active{
+	display: block;
+	animation: coachFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.coach-metric-panel h3{
+	margin-bottom: 12px;
+}
+
+.coach-metric-panel ul{
+	margin: 18px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.coach-metric-panel ul li{
+	position: relative;
+	padding-left: 22px;
+	margin-bottom: 12px;
+	line-height: 1.7;
+	color: var(--text-color);
+}
+
+.coach-metric-panel ul li:before{
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 10px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--accent-secondary-color, #BEFDC8);
+}
+
+.coach-compare-table{
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	background: var(--white-color);
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+.coach-compare-table th,
+.coach-compare-table td{
+	padding: 18px 20px;
+	border-bottom: 1px solid var(--divider-color);
+	line-height: 1.6;
+	vertical-align: top;
+}
+
+.coach-compare-table th{
+	background: var(--accent-color);
+	color: var(--white-color);
+	font-weight: 500;
+}
+
+.coach-compare-table td:first-child{
+	color: var(--primary-color);
+	font-weight: 500;
+	width: 18%;
+}
+
+.coach-compare-table tbody tr:last-child td{
+	border-bottom: 0;
+}
+
+.coach-prompt-list{
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-bottom: 24px;
+}
+
+.coach-prompt-btn{
+	border: 1px solid var(--divider-color);
+	background: var(--white-color);
+	border-radius: 12px;
+	padding: 16px 20px;
+	text-align: left;
+	color: var(--primary-color);
+	transition: 0.35s ease;
+}
+
+.coach-prompt-btn.active,
+.coach-prompt-btn:hover{
+	background: var(--accent-color);
+	color: var(--white-color);
+	border-color: var(--accent-color);
+}
+
+.coach-chat{
+	background: var(--white-color);
+	border: 1px solid var(--divider-color);
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+.coach-chat-head{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 18px 22px;
+	border-bottom: 1px solid var(--divider-color);
+}
+
+.coach-chat-head h3{
+	margin: 0;
+	font-size: 18px;
+}
+
+.coach-chat-head span{
+	font-size: 12px;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--accent-color);
+}
+
+.coach-chat-thread{
+	padding: 24px 22px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.coach-chat-thread.is-animating{
+	animation: coachFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.coach-bubble span{
+	display: block;
+	font-size: 12px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	margin-bottom: 8px;
+}
+
+.coach-bubble p{
+	margin: 0;
+	line-height: 1.7;
+}
+
+.coach-bubble.user{
+	background: var(--bg-color);
+	border-radius: 12px;
+	padding: 16px 18px;
+}
+
+.coach-bubble.ai{
+	background: rgba(3, 50, 54, 0.06);
+	border-radius: 12px;
+	padding: 16px 18px;
+}
+
+.coach-chat-cta{
+	padding: 0 22px 22px;
+}
+
+.page-ai-coach .service-item,
+.page-ai-coach .our-module-item,
+.page-ai-coach .coach-metric-tab{
+	transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.page-ai-coach .service-item:hover,
+.page-ai-coach .our-module-item:hover{
+	transform: translateY(-6px);
+}
+
+@keyframes coachFadeIn{
+	from{
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to{
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (max-width: 991px){
+	.coach-compare-table th,
+	.coach-compare-table td{
+		padding: 12px;
+		font-size: 14px;
+	}
+}
+
+/* Card images: show full photo without cropping */
+.service-item-image figure,
+.case-study-item-image figure,
+.team-item-image figure,
+.post-featured-image figure,
+.post-image figure,
+.page-gallery-box .photo-gallery figure,
+.video-gallery-image figure,
+.benefits-image figure,
+.about-us-image figure,
+.why-choose-image-1 figure,
+.why-choose-image-2 figure,
+.core-features-image figure,
+.faq-bg-image figure,
+.watch-video-image-box figure,
+.testimonial-item-image figure,
+.page-single-image figure,
+.case-study-challenge-image figure,
+.case-study-solution-image figure,
+.team-single-image figure{
+	background: var(--secondary-color, #f0f4f1);
+}
+
+.service-item-image figure img,
+.case-study-item-image figure img,
+.team-item-image figure img,
+.post-featured-image img,
+.post-image img,
+.page-gallery-box .photo-gallery img,
+.video-gallery-image img,
+.benefits-image figure img,
+.about-us-image img,
+.why-choose-image-1 figure img,
+.why-choose-image-2 figure img,
+.core-features-image img,
+.faq-bg-image img,
+.watch-video-image-box figure img,
+.testimonial-item-image figure img,
+.page-single-image img,
+.case-study-challenge-image img,
+.case-study-solution-image figure img,
+.team-single-image img,
+.reveal img{
+	object-fit: contain !important;
+	object-position: center center;
 }
