@@ -4,7 +4,7 @@ import { HealthioScripts } from "@/components/HealthioScripts";
 export const metadata: Metadata = {
   title: "novimid — Physician-Directed Weight Loss",
   description:
-    "Weight loss that fits your life. Semaglutide Care and Tirzepatide Care — physician-directed, clinically clear.",
+    "Weight loss that fits your life. Semaglutide Care, Tirzepatide Care, and an AI Accountability Coach between physician visits.",
   icons: { icon: "/images/favicon.svg" },
 };
 

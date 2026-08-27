@@ -18,6 +18,7 @@ const htmlRedirects = [
   ["image-gallery.html", "/image-gallery"],
   ["video-gallery.html", "/video-gallery"],
   ["faqs.html", "/faqs"],
+  ["ai-coach.html", "/ai-coach"],
   ["contact.html", "/contact-us"],
   ["404.html", "/404"],
 ] as const;

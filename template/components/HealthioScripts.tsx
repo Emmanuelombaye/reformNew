@@ -21,6 +21,7 @@ const HEALTHIO_LIBS = [
   "/js/jquery.mb.YTPlayer.min.js",
   "/js/wow.min.js",
   "/js/function.js",
+  "/js/ai-coach.js",
 ];
 
 type HealthioThemeApi = {
@@ -41,6 +42,7 @@ declare global {
     HealthioCursor?: HealthioCursorApi;
     jQuery?: (sel: string) => { fadeOut: (ms: number) => void };
     ScrollTrigger?: { refresh: () => void; getAll: () => Array<{ kill: () => void }> };
+    initAiCoachPage?: () => void;
   }
 }
 
@@ -139,6 +141,7 @@ export function HealthioScripts() {
         // Always re-assert cursor after paint (exact hover / pointer states)
         ensureCursor();
         window.ScrollTrigger?.refresh?.();
+        window.initAiCoachPage?.();
         hidePreloaderFallback();
       } finally {
         window.clearTimeout(failsafe);

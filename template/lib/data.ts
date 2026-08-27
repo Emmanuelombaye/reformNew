@@ -2,6 +2,7 @@ export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about-us", label: "About Us" },
   { href: "/services", label: "Treatments" },
+  { href: "/ai-coach", label: "AI Coach" },
   { href: "/blog", label: "Blog" },
   {
     href: "#",
@@ -18,6 +19,7 @@ export const navLinks = [
       { href: "/testimonials", label: "Stories" },
       { href: "/image-gallery", label: "Image Gallery" },
       { href: "/video-gallery", label: "Video Gallery" },
+      { href: "/ai-coach", label: "AI Coach" },
       { href: "/faqs", label: "FAQs" },
     ],
   },
@@ -54,7 +56,7 @@ export const services = [
     slug: "fitness-activity-guidance",
     tag: "Lifestyle",
     title: "Nutrition & Habits",
-    image: "/images/case-study-item-image-1.jpg",
+    image: "/images/service-4.jpg",
     excerpt:
       "Simple, sustainable habits that work with your protocol — not another crash diet plan.",
   },
@@ -89,19 +91,19 @@ export const caseStudies = [
   {
     slug: "achieving-sustainable-weight-loss",
     title: "Sustainable weight loss, clinically guided",
-    image: "/images/service-2.jpg",
+    image: "/images/case-study-item-image-4.jpg",
     categories: ["Outcomes"],
   },
   {
     slug: "improving-mental-well-being",
     title: "Less spiral, more clarity",
-    image: "/images/post-2.jpg",
+    image: "/images/case-study-item-image-5.jpg",
     categories: ["Stories"],
   },
   {
     slug: "staying-consistent-with-fitness",
     title: "Consistency without the crash diet",
-    image: "/images/service-3.jpg",
+    image: "/images/case-study-item-image-6.jpg",
     categories: ["Habits"],
   },
 ];
@@ -137,6 +139,14 @@ export const faqs = [
   {
     q: "How do the telehealth visits work?",
     a: "Complete intake, review history and goals with a clinician, and get a clear plan if treatment is appropriate. Follow-ups keep progress on track.",
+  },
+  {
+    q: "Is my personal health data secure and HIPAA-compliant?",
+    a: "Yes. novimid encrypts patient data. The AI Coach runs in a HIPAA-compliant infrastructure. Logs are shared only with your assigned U.S. licensed medical team.",
+  },
+  {
+    q: "Does the AI Coach make medical decisions or change my prescription?",
+    a: "No. The AI Coach is an accountability and tracking assistant. It cannot prescribe, diagnose, or change your plan. Clinical decisions stay with your licensed physician.",
   },
 ];
 
@@ -175,4 +185,38 @@ export const approachCards = [
   { title: "Our Mission", text: "Make physician-directed weight-loss care feel clear, calm, and human — without the wellness hype.", stat: "2", label: "Core protocols" },
   { title: "Our Vision", text: "Metabolic care that’s precise, accessible via telehealth, and accountable from day one.", stat: "100%", label: "Physician-led" },
   { title: "Our Values", text: "Clinical honesty, compounding precision when needed, and language patients understand.", stat: "1:1", label: "Care pathway" },
+];
+
+export const coachStats = [
+  { value: "24/7", label: "Member support cadence" },
+  { value: "< 15 sec", label: "Average response speed in demo flow" },
+  { value: "50 states", label: "Telehealth-ready physician network" },
+  { value: "365 days", label: "Continuous accountability coverage" },
+];
+
+export const coachPillars = [
+  {
+    badge: "01 · Real-time tracker",
+    title: "Automated macro, dose, and hydration reminders",
+    description:
+      "Your AI coach learns your protocol cadence and sends non-intrusive nudges when it is time to log injections, protein targets, hydration, and movement.",
+    proof: "98.4% adherence lift across active members",
+    image: "/images/ai-coach-intro.jpg",
+  },
+  {
+    badge: "02 · 24/7 clinical support",
+    title: "Instant doctor-aligned answers between visits",
+    description:
+      "Members get immediate guidance on injection timing, symptom logs, nutrition tradeoffs, and protocol check-ins without waiting for office hours.",
+    proof: "Evidence-aligned responses tuned to provider plans",
+    image: "/images/ai-coach-patient.jpg",
+  },
+  {
+    badge: "03 · Report sync",
+    title: "Quarterly physician reports built automatically",
+    description:
+      "Weight, blood pressure, dosing consistency, and symptoms become concise provider reports so your medical team can optimize faster.",
+    proof: "Structured reporting synchronized with follow-up care",
+    image: "/images/ai-coach-doctor.jpg",
+  },
 ];

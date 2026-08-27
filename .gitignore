@@ -9,7 +9,6 @@ build/
 dist/
 
 # env / secrets
-.env
 .env*.local
 *.pem
 
@@ -25,4 +24,4 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 .idea/
-.vscode/
+config.bat

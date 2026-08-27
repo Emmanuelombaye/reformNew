@@ -2,10 +2,19 @@
   "name": "healthio",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://github.com/Emmanuelombaye/reformNew",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Emmanuelombaye/reformNew.git"
+  },
+  "remotes": {
+    "origin": "https://github.com/Rangel-holdings/novimid.git",
+    "reformNew": "https://github.com/Emmanuelombaye/reformNew.git"
+  },
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start"
+    "dev": "node init && next dev --turbopack",
+    "build": "node init && next build",
+    "start": "node init && next start"
   },
   "dependencies": {
     "next": "^15.4.6",
